@@ -1,6 +1,9 @@
 class BooksController < ApplicationController
   def index
-    @book = Book.all
+    # 新規投稿のデータを格納
+    @book = Book.new
+    # モデルBookの全データを下記に格納
+    @books = Book.all
   end
 
   def create
@@ -9,7 +12,8 @@ class BooksController < ApplicationController
       flash[:notice] = "The book was successfully created."
       redirect_to book_path(@book.id)
     else
-      render 'books/index'
+      @books = Book.all
+      render :index
     end
   end
 
@@ -33,7 +37,8 @@ class BooksController < ApplicationController
   def destroy
     book = Book.find(params[:id])
     book.destroy
-    redirect_to  books
+    flash[:notice] = "The book was successfully destroyed."
+    redirect_to  books_path
   end
 
   private
