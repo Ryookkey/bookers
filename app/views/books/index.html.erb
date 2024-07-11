@@ -1,11 +1,20 @@
 <h2>Books</h2>
+<% #if @book.errors.any? %>
+  <%#= @book.errors.count %><!--件のエラーが発生しました --
+  <!--<ul>-->
+    <%# @book.errors.full_messages.each do |message| %>
+      <!--<li><%#= message %></li>-->
+    <%# end %>
+  <!--</ul>-->
+<%# end %>
+
 <table>
   <tr>
     <td>Title</td>
     <td>Body</td>
   </tr>
 
-  <% @books.each do |book| %>
+  <% @book.each do |book| %>
     <tr>
       <td><%= book.title %></td>
       <td><%= book.body %></td>
@@ -16,7 +25,7 @@
   <% end %>
 </table>
 
-<%= form_with model: @books, url: '/books', method: :post do |f| %>
+<%= form_with model: @book, url: '/books', method: :post do |f| %>
   <p>Title</p>
   <%= f.text_field :title %>
 
